@@ -1,4 +1,4 @@
-# Apna Video Call 📹
+# ConferenceWorld 📹
 
 A full-stack real-time video conferencing application built with the MERN stack and WebRTC technology. Experience seamless video calls with features like screen sharing, real-time chat, and meeting history tracking.
 
@@ -296,10 +296,10 @@ lsof -ti:3000 | xargs kill -9
 - Try using a different browser (Chrome/Firefox recommended)
 
 ## Future Enhancements
-- [ ] AI in chat
-- [ ] Download chat
+- [x] AI in chat
+- [x] Download chat
 - [ ] better meeting code
-- [ ] better UI
+- [x] better UI
 - [ ] white board or notepad
 
 ## 🤝 Contributing

@@ -1,55 +1,191 @@
 .landingPageContainer{
   width: 100vw;
   height: 100vh;
-  background: url(/background.png);
+  /* background: url(/background.png); */
+  background: radial-gradient(circle at 15% 50%, rgba(10, 20, 40, 1), var(--bg-dark) 60%), url(/background.png);
   background-repeat: no-repeat;
   background-size: cover;
-  color: white;
+  background-position: center;
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add a subtle overlay so text pops */
+.landingPageContainer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10, 16, 31, 0.6);
+  z-index: 1;
 }
 
 .landingPageContainer nav{
-  padding-inline: 1.2rem;
-  padding-block: 1.6rem;
+  position: relative;
+  z-index: 10;
+  padding-inline: 4rem;
+  padding-block: 1.2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: rgba(10, 16, 31, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .landingPageContainer nav h2{
   font-size: 1.8rem;
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: linear-gradient(90deg, #fff, #a0aabf);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .landingPageContainer nav .navList{
   display: flex;
-  gap: 1.6rem;
+  gap: 2rem;
+  align-items: center;
+}
+
+.landingPageContainer nav .navList p {
   cursor: pointer;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.landingPageContainer nav .navList p:hover {
+  color: var(--text-primary);
+}
+
+.landingPageContainer nav .navList div[role='button'] p {
+  background: var(--accent-gradient);
+  padding: 0.6rem 1.5rem;
+  border-radius: 30px;
+  color: white !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 136, 255, 0.4);
+}
+
+.landingPageContainer nav .navList div[role='button']:hover p {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 136, 255, 0.6);
 }
 
 .landingMainContainer{
+  position: relative;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
-  padding-inline: 3rem;
-  height: 80vh;
+  padding-inline: 5rem;
+  height: calc(100vh - 80px); /* adjusted for nav height */
   align-items: center;
+}
 
-}
 .landingMainContainer > div:nth-child(1){
-  font-size: 2.2rem;
+  font-size: 2.5rem;
+  max-width: 600px;
+  animation: fadeUp 0.8s ease-out forwards;
 }
+
+.landingMainContainer > div:nth-child(1) h1 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.landingMainContainer > div:nth-child(1) h1 span {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.landingMainContainer > div:nth-child(1) p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-bottom: 2.5rem;
+}
+
 .landingMainContainer > div:nth-child(1) div[role='button']{
-  background-color: #d97500;
+  background: var(--accent-gradient);
   width: fit-content;
-  padding: 1rem;
-  border-radius: 20px;
-  margin-top: 2rem;
+  padding: 1rem 2.5rem;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0, 136, 255, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
-.landingMainContainer > div:nth-child(1) div[role='button'] a{
-  text-decoration: none;
+
+.landingMainContainer > div:nth-child(1) div[role='button']:hover{
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 136, 255, 0.5);
+}
+
+.landingMainContainer > div:nth-child(1) div[role='button'] p{
+  margin: 0;
   color: white;
-  font-size: 1.7rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
+
+.landingMainContainer > div:nth-child(2) {
+  animation: float 6s ease-in-out infinite;
+}
+
 .landingMainContainer > div:nth-child(2) img{
-  height: 70vh;
+  height: 65vh;
   width: auto;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+@media screen and (max-width: 768px) {
+  .landingPageContainer nav {
+    padding-inline: 1.5rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .landingPageContainer nav .navList {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .landingMainContainer {
+    flex-direction: column;
+    padding-inline: 1.5rem;
+    height: auto;
+    text-align: center;
+    padding-top: 3rem;
+  }
+  .landingMainContainer > div:nth-child(1) {
+    font-size: 2rem;
+  }
+  .landingMainContainer > div:nth-child(1) div[role='button'] {
+    margin: 2rem auto;
+  }
+  .landingMainContainer > div:nth-child(2) img {
+    height: 40vh;
+    margin-top: 2rem;
+  }
+  .landingPageContainer nav h2 {
+    font-size: 1.5rem;
+  }
 }

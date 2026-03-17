@@ -6,13 +6,21 @@ import SignInCard from './components/SignInCard.jsx';
 import Content from './components/Content.jsx';
 import { useContext } from 'react';
 import { AuthProvider } from '../context/AuthContext.jsx';
+// import logo from "../../public/conferenceWorld_logo";
 
 export default function SignInSide(props) {
 
   return (
     <AppTheme {...props}>
+      <div className='navbar' style={{display: "flex", alignItems: "center"}}>
+          <a href="/" className='brand-name '>
+            {/* <img src="/conferenceWorld_logo.png" alt="logo" /> */}
+            <h2>ConferenceWorld</h2>
+          </a>
+          <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
+      </div>
       <CssBaseline enableColorScheme />
-      <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
+      
       <Stack
         direction="column"
         component="main"

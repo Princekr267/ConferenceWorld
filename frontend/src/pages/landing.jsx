@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IconButton, Button } from '@mui/material';
 import RestoreIcon from '@mui/icons-material/Restore';
+import PersonIcon from '@mui/icons-material/Person';
 
 function LandingPage() {
     const router = useNavigate();
@@ -18,7 +19,7 @@ function LandingPage() {
         <div className='landingPageContainer'>
             <nav>
                 <div className="navHeader">
-                    <h2>Apna Video Call</h2>
+                    <h2>ConferenceWorld</h2>
                 </div>
                 {!token ? <div className="navList">
                     <p onClick={() => {
@@ -33,22 +34,32 @@ function LandingPage() {
                         }}>Login</p>
                     </div>
                 </div> : <div style={{display: "flex", alignItems: "center", gap: "10px"}}>
-                    <div style={{display: "flex", alignItems: "center"}}>
-                        <IconButton onClick={() => navigate("/history")}>
-                            <RestoreIcon style={{color: "white"}}/>
-                            <p style={{margin: 0, color: "white"}}>History</p>
-                        </IconButton>
-                    </div>
-                    <Button onClick={() => {
-                        localStorage.removeItem("token")
-                        navigate("/auth")
-                    }} style={{color: "white"}}>Logout</Button>
+                    <Button 
+                        startIcon={<RestoreIcon />} 
+                        onClick={() => navigate("/history")}
+                        sx={{ color: "var(--text-primary)", textTransform: "none", fontSize: "1rem" }}
+                    >
+                        History
+                    </Button>
+                    <Button 
+                        onClick={() => {
+                            localStorage.removeItem("token")
+                            navigate("/auth")
+                        }} 
+                        sx={{ color: "var(--text-primary)", textTransform: "none", fontSize: "1rem" }}
+                    >
+                        Logout
+                    </Button>
+                    <Button className="profile-btn" onClick={() => navigate("/Profile")}>
+                        <PersonIcon className="profile"/>        
+                    </Button>
                 </div>}
+                
             </nav>
             <div className="landingMainContainer">
                 <div>
                     <h1><span style={{color: "#ff9839"}}>Connect</span> with your loved ones</h1>
-                    <p>Cover a distance with Apna video call</p>
+                    <p>Cover a distance with ConferenceWorld</p>
                     <div role='button' onClick={handleGetStarted}>
                         <p style={{cursor: 'pointer'}}>Get Started</p>
                     </div>

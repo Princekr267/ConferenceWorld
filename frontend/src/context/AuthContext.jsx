@@ -72,8 +72,19 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    const getUserProfile = async () => {
+        try {
+            let request = await client.get("/profile", {
+                params: { token: localStorage.getItem("token") }
+            });
+            return request.data;
+        } catch (err) {
+            throw err;
+        }
+    }
+
     const data = {
-        userData, setUserData, getHistoryOfUser, handleRegister, handleLogin, addToUserHistory
+        userData, setUserData, getHistoryOfUser, handleRegister, handleLogin, addToUserHistory, getUserProfile
     }
     return (
         <AuthContext.Provider value={data}>
