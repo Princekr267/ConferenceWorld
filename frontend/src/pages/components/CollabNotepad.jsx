@@ -172,6 +172,9 @@ const CollabNotepad = ({ roomId, userName, onClose }) => {
                     index: range.index,
                     length: range.length
                 });
+            } else {
+                // Clear local cursor when editor loses focus (range === null)
+                awareness.setLocalStateField('cursor', null);
             }
         });
 
@@ -279,43 +282,6 @@ const CollabNotepad = ({ roomId, userName, onClose }) => {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     }, []);
-
-    // Share room link
-    const handleShare = useCallback(async () => {
-        const shareUrl = window.location.href;
-
-        try {
-            await navigator.clipboard.writeText(shareUrl);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-        } catch (err) {
-            // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = shareUrl;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-        }
-    }, []);
-
-    // Toolbar button handlers
-    const formatText = (format, value = true) => {
-        const quill = quillRef.current;
-        if (!quill) return;
-
-        const selection = quill.getSelection();
-        if (selection) {
-            if (format === 'header') {
-                quill.format('header', value);
-            } else {
-                const currentFormat = quill.getFormat();
-                quill.format(format, !currentFormat[format]);
-            }
-        }
-    };
 
     return (
         <div className="notepad-panel">
