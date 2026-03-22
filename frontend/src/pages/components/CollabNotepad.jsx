@@ -127,20 +127,7 @@ const CollabNotepad = ({ roomId, userName, onClose }) => {
         // Sync initial content from Yjs to Quill
         const initialContent = ytext.toDelta();
         if (initialContent.length > 0) {
-            quill.setContents(initialContent, 'silent');
-        }
-
-        // Listen for remote changes from Yjs
-        ytext.observe((event) => {
-            if (event.transaction.local) return;
-
-            isUpdatingFromYjs = true;
-            const delta = event.delta;
-
-            // Apply the full Yjs delta to Quill so that inserts, deletes,
-            // and attribute-only formatting changes are all synced correctly.
-            quill.updateContents(delta, 'silent');
-
+            quill.updateContents(event.delta, 'silent');
             isUpdatingFromYjs = false;
         });
 
