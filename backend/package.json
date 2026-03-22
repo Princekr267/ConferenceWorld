@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "concurrently \"nodemon src/app.js\" \"node src/yjsServer.js\"",
     "start": "concurrently \"node src/app.js\" \"node src/yjsServer.js\"",
-    "prod": "pm2 src/app.js",
+    "prod": "pm2 start src/app.js && pm2 start src/yjsServer.js",
     "yjs": "node src/yjsServer.js"
   },
   "dependencies": {

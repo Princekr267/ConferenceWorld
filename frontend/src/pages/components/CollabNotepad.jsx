@@ -28,9 +28,6 @@ import DownloadIcon from '@mui/icons-material/Download';
 import CloseIcon from '@mui/icons-material/Close';
 import CircleIcon from '@mui/icons-material/Circle';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import ShareIcon from '@mui/icons-material/Share';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import CheckIcon from '@mui/icons-material/Check';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatStrikethroughIcon from '@mui/icons-material/FormatStrikethrough';
@@ -78,7 +75,7 @@ const CollabNotepad = ({ roomId, userName, onClose }) => {
     const undoManagerRef = useRef(null);
     const [isConnected, setIsConnected] = useState(false);
     const [activeUsers, setActiveUsers] = useState([]);
-    const [copied, setCopied] = useState(false);
+    const [, setCopied] = useState(false);
 
     // Sanitize roomId for use as Yjs document name
     const sanitizedRoomId = roomId.replace(/[^a-zA-Z0-9-_]/g, '_');
@@ -140,17 +137,9 @@ const CollabNotepad = ({ roomId, userName, onClose }) => {
             isUpdatingFromYjs = true;
             const delta = event.delta;
 
-            let index = 0;
-            delta.forEach(op => {
-                if (op.retain !== undefined) {
-                    index += op.retain;
-                } else if (op.insert !== undefined) {
-                    quill.insertText(index, op.insert, op.attributes || {}, 'silent');
-                    index += typeof op.insert === 'string' ? op.insert.length : 1;
-                } else if (op.delete !== undefined) {
-                    quill.deleteText(index, op.delete, 'silent');
-                }
-            });
+            // Apply the full Yjs delta to Quill so that inserts, deletes,
+            // and attribute-only formatting changes are all synced correctly.
+            quill.updateContents(delta, 'silent');
 
             isUpdatingFromYjs = false;
         });
