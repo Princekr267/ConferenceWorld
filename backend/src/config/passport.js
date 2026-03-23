@@ -3,10 +3,15 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { User } from "../models/user.model.js";
 import crypto from "crypto";
 
+// Build callback URL - use BACKEND_URL for production, relative for dev
+const callbackURL = process.env.BACKEND_URL
+    ? `${process.env.BACKEND_URL}/api/v1/users/auth/google/callback`
+    : "/api/v1/users/auth/google/callback";
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/api/v1/users/auth/google/callback"
+    callbackURL: callbackURL
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
