@@ -25,7 +25,7 @@ router.get("/auth/google/callback",
   passport.authenticate("google", { session: false, failureRedirect: "/auth?error=google_failed" }),
   (req, res) => {
     // Redirect to frontend with token
-    res.redirect(`http://localhost:5173/auth/google/success?token=${req.user.token}`);
+    res.redirect(`${process.env.FRONTEND_URL}/auth/google/success?token=${req.user.token}`);
   }
 );
 

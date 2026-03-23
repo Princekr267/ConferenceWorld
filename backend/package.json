@@ -5,7 +5,10 @@
   "license": "ISC",
   "author": "Prince",
   "type": "module",
-  "main": "index.js",
+  "main": "src/app.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "nodemon src/app.js",
     "start": "node src/app.js",

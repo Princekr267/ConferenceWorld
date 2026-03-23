@@ -37,6 +37,7 @@ import FormatStrikethroughIcon from '@mui/icons-material/FormatStrikethrough';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import CodeIcon from '@mui/icons-material/Code';
+import servers from '../../enviroment';
 import TitleIcon from '@mui/icons-material/Title';
 import FormatClearIcon from '@mui/icons-material/FormatClear';
 import 'quill/dist/quill.snow.css';
@@ -61,12 +62,13 @@ const getUserColor = (name) => {
 
 // Get Yjs WebSocket server URL based on environment
 const getYjsServerUrl = () => {
-    const isProd = import.meta.env.VITE_YJS_SERVER_URL;
-    if (isProd) {
+    const yjsServerUrl = import.meta.env.VITE_YJS_SERVER_URL;
+    if (yjsServerUrl) {
         // Use WSS protocol and /yjs path on production
-        return isProd.replace('https://', 'wss://').replace('http://', 'ws://') + '/yjs';
+        return yjsServerUrl.replace('https://', 'wss://').replace('http://', 'ws://') + '/yjs';
     }
-    return 'ws://localhost:3000/yjs';
+    // Fallback to backend server URL from environment configuration
+    return servers.replace('https://', 'wss://').replace('http://', 'ws://') + '/yjs';
 };
 
 const CollabNotepad = ({ roomId, userName, onClose }) => {

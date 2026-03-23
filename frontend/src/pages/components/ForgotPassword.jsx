@@ -14,8 +14,9 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
+import servers from '../../enviroment';
 
-const API_URL = 'http://localhost:3000/api/v1/users';
+const API_URL = `${servers}/api/v1/users`;
 
 function ForgotPassword({ open, handleClose }) {
   const [step, setStep] = React.useState(1); // 1: email, 2: OTP, 3: new password

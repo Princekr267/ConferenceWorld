@@ -18,6 +18,7 @@ import { styled } from '@mui/material/styles';
 import { useSearchParams } from 'react-router-dom';
 import ForgotPassword from './ForgotPassword';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
+import servers from '../../enviroment';
 import { AuthContext } from '../../context/AuthContext';
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -279,7 +280,7 @@ export default function SignInCard() {
           fullWidth
           variant="outlined"
           startIcon={<GoogleIcon />}
-          onClick={() => window.location.href = "http://localhost:3000/api/v1/users/auth/google"}
+          onClick={() => window.location.href = `${servers}/api/v1/users/auth/google`}
           sx={{ mt: 1 }}
         >
           Continue with Google

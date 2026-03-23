@@ -11,6 +11,7 @@ import StopScreenShareIcon from '@mui/icons-material/StopScreenShare';
 import ChatIcon from '@mui/icons-material/Chat';
 import PeopleIcon from '@mui/icons-material/People';
 import EditNoteIcon from '@mui/icons-material/EditNote';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export default function ControlBar({
     video,

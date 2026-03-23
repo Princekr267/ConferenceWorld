@@ -8,8 +8,9 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import servers from '../enviroment';
 
-const client = axios.create({ baseURL: 'http://localhost:3000/api/v1/users' });
+const client = axios.create({ baseURL: `${servers}/api/v1/users` });
 
 // 3 steps: 0 = email, 1 = otp, 2 = new password
 export default function ForgotPassword() {
