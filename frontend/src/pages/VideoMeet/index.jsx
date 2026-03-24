@@ -419,7 +419,8 @@ export default function VideoMeetComponent() {
                 });
             }
 
-            // Broadcast the final full response so other participants also see it
+            // Remove the local streaming message; the socket echo will re-add it for everyone
+            setMessages(prev => prev.slice(0, -1));
             socketRef.current.emit('chat-message', accumulated, AI_SENDER);
         } catch (e) {
             const code = e?.status || e?.code;
