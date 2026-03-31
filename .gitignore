@@ -34,3 +34,5 @@ tsc-out/
 
 # OS generated files
 Thumbs.db
+
+backend/src/delete-yjs.bat
