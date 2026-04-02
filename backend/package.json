@@ -31,9 +31,6 @@
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "socket.io": "^4.8.3",
-    "ws": "^8.18.0",
-    "y-protocols": "^1.0.7",
-    "y-websocket": "^3.0.0",
-    "yjs": "^13.6.30"
+    "ws": "^8.18.0"
   }
 }
