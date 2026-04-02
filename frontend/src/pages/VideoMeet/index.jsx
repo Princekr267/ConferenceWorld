@@ -310,21 +310,38 @@ export default function VideoMeetComponent() {
             const videoSender = senders.find(s => s.track?.kind === 'video' || (s.track === null && s.replaceTrack));
             const audioSender = senders.find(s => s.track?.kind === 'audio');
 
-            // Replace video track
-            if (videoTrack && videoSender) {
-                videoSender.replaceTrack(videoTrack).catch(console.error);
-            } else if (videoTrack) {
-                // No existing video sender, need to add track and renegotiate
-                try {
-                    connections[id].addTrack(videoTrack, stream);
-                } catch (e) {
-                    console.error('Error adding video track:', e);
+            // Replace or add video track
+            if (videoTrack) {
+                if (videoSender) {
+                    videoSender.replaceTrack(videoTrack).catch(err => {
+                        console.error('Error replacing video track:', err);
+                        // Fallback: if replaceTrack fails, add track
+                        try {
+                            connections[id].addTrack(videoTrack, stream);
+                        } catch (e) {
+                            console.error('Error adding video track:', e);
+                        }
+                    });
+                } else {
+                    // No existing video sender, add track
+                    try {
+                        connections[id].addTrack(videoTrack, stream);
+                    } catch (e) {
+                        console.error('Error adding video track:', e);
+                    }
                 }
             }
 
             // Replace audio track if screen share has audio
             if (audioTrack && audioSender) {
                 audioSender.replaceTrack(audioTrack).catch(console.error);
+            } else if (audioTrack) {
+                // No audio sender, try to add
+                try {
+                    connections[id].addTrack(audioTrack, stream);
+                } catch (e) {
+                    console.error('Error adding audio track:', e);
+                }
             }
 
             // Renegotiate to ensure remote side receives the new stream
